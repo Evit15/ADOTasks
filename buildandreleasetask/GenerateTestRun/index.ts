@@ -10,7 +10,11 @@ async function run() {
         console.log('Hello', inputString);
     }
     catch (err) {
-        tl.setResult(tl.TaskResult.Failed, err.message);
+        let errorMessage = "Failed to do something exceptional";
+        if (err instanceof Error) {
+            errorMessage = err.message;
+        }
+        tl.setResult(tl.TaskResult.Failed, errorMessage);
     }
 }
 
