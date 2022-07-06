@@ -36,7 +36,7 @@ stages:
             inputs:
               targetType: "inline"
               script: |
-                cd buildandreleasetask/GenerateTestRun # Update to the name of the directory of your task
+                cd buildandreleasetask/GenerateTestRun 
                 tsc
           # - task: Npm@1
           #   inputs:
@@ -63,7 +63,7 @@ stages:
             inputs:
               targetType: "inline"
               script: |
-                cd buildandreleasetask/GenerateTestRun # Update to the name of the directory of your task
+                cd buildandreleasetask/GenerateTestRun 
                 tsc
           - task: QueryAzureDevOpsExtensionVersion@3
             inputs:
