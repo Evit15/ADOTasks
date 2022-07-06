@@ -68,7 +68,7 @@ stages:
           - task: QueryAzureDevOpsExtensionVersion@3
             inputs:
               connectTo: 'VsTeam'
-              connectedServiceName: 'ServiceConnection' # Change to whatever you named the service connection
+              connectedServiceName: 'marketplace' # Change to whatever you named the service connection
               publisherId: '$(PublisherID)'
               extensionId: '$(ExtensionID)'
               versionAction: 'Patch'
