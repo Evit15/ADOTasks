@@ -1,3 +1,3 @@
 # ADOTasks
 
-npx tfx-cli extension create --output-path build
+tfx extension create --manifest-globs vss-extension.json --output-path build
