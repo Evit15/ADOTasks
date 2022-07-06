@@ -1,39 +1,36 @@
 {
     "manifestVersion": 1,
-    "id": "my-first-extension",
+    "id": "Evit15-build-release-task",
+    "name": "Evit15 Build and Release Tools",
+    "version": "0.0.1",
     "publisher": "Evit15",
-    "version": "1.0.0",
-    "name": "My First Extension",
-    "description": "A sample Visual Studio Services extension",
-    "public": false,
-    "categories": ["Azure Repos"],
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
         }
+    ],    
+    "description": "Tools for building/releasing with Evit15. Includes one build/release task.",
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "icons": {
+        "default": "images/tasks.png"        
+    },
+    "files": [
+        {
+            "path": "buildandreleasetask/GenerateTestRun"
+        }
     ],
     "contributions": [
         {
-            "id": "my-hub",
-            "type": "ms.vss-web.hub",
+            "id": "generate-test-run",
+            "type": "ms.vss-distributed-task.task",
             "targets": [
-                "ms.vss-code-web.code-hub-group"
+                "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "My Hub",
-                "uri": "my-hub.html"
+                "name": "buildandreleasetask/GenerateTestRun"
             }
-        }
-    ],
-    "files": [
-        {
-            "path": "my-hub.html",
-            "addressable": true
-        },
-        {
-            "path": "node_modules/vss-web-extension-sdk/lib",
-            "addressable": true,
-            "packagePath": "lib"
         }
     ]
 }
