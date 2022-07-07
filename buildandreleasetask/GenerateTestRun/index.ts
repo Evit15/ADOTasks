@@ -8,6 +8,7 @@ async function run() {
     try {
         const sTestPlanID = tl.getInput('testPlan', true)!;
         const sTestSuiteID = tl.getInput('testSuite', true)!;
+        const sTestRunOutput = tl.getInput('outputTestRunID', true)!;
 
         const iTestPlanID: number = parseInt(sTestPlanID);
         const iTestSuiteID: number = parseInt(sTestSuiteID);
@@ -38,7 +39,10 @@ async function run() {
             pointIds: pointIds
         };
         let testRunNew: ti.TestRun = await test.createTestRun(testRunModel, project)
-        console.log(`Test point id: ${testRunNew.id}`);
+        console.log(`Test run id: ${testRunNew.id}`);
+
+        tl.setVariable(sTestRunOutput, `${testRunNew.id}`);
+        tl.setResult(tl.TaskResult.Succeeded, `Test run id: ${testRunNew.id}`);
 
     }
     catch (err) {
