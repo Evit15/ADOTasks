@@ -2,12 +2,13 @@ import tl = require('azure-pipelines-task-lib/task');
 
 async function run() {
     try {
-        const inputString: string | undefined = tl.getInput('samplestring', true);
-        if (inputString == 'bad') {
-            tl.setResult(tl.TaskResult.Failed, 'Bad input was given');
-            return;
-        }
-        console.log('Hello', inputString);
+        const sTestPlanID = tl.getInput('testPlan', true)!;
+        const sTestSuiteID = tl.getInput('testSuite', true)!;
+
+        const iTestPlanID: number = parseInt(sTestPlanID);
+        const iTestSuiteID: number = parseInt(sTestSuiteID);
+        console.log(`Test plan id: ${iTestPlanID}`);
+        console.log(`Test suite id: ${iTestSuiteID}`);
     }
     catch (err) {
         let errorMessage = "Failed to do something exceptional";
