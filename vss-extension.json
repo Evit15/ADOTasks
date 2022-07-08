@@ -19,6 +19,9 @@
     "files": [
         {
             "path": "buildandreleasetask/GenerateTestRun"
+        },
+        {
+            "path": "buildandreleasetask/SetTestRunStatus"
         }
     ],
     "contributions": [
