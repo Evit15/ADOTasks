@@ -31,6 +31,16 @@
             "properties": {
                 "name": "buildandreleasetask/GenerateTestRun"
             }
+        },
+        {
+            "id": "set-test-run-status",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "buildandreleasetask/SetTestRunStatus"
+            }
         }
     ]
 }
