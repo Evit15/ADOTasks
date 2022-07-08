@@ -75,6 +75,7 @@ stages:
               script: |
                 cd buildandreleasetask/GenerateTestRun 
                 tsc
+                cd ../..
                 cd buildandreleasetask/SetTestRunStatus 
                 tsc
           - task: QueryAzureDevOpsExtensionVersion@3
