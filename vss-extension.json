@@ -22,6 +22,9 @@
         },
         {
             "path": "buildandreleasetask/SetTestRunStatus"
+        },
+        {
+            "path": "buildandreleasetask/SetAutomationStatus"
         }
     ],
     "contributions": [
@@ -43,6 +46,16 @@
             ],
             "properties": {
                 "name": "buildandreleasetask/SetTestRunStatus"
+            }
+        },
+        {
+            "id": "set-automation-status",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "buildandreleasetask/SetAutomationStatus"
             }
         }
     ]
