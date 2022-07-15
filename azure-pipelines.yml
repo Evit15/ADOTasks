@@ -35,6 +35,10 @@ stages:
             inputs:
               command: 'install'
               workingDir: 'buildandreleasetask/SetTestRunStatus'
+          - task: Npm@1
+            inputs:
+              command: 'install'
+              workingDir: 'buildandreleasetask/SetAutomationStatus'
           - task: Bash@3
             displayName: Compile Javascript
             inputs:
@@ -42,7 +46,11 @@ stages:
               script: |
                 cd buildandreleasetask/GenerateTestRun 
                 tsc
+                cd ../..
                 cd buildandreleasetask/SetTestRunStatus 
+                tsc
+                cd ../..
+                cd buildandreleasetask/SetAutomationStatus 
                 tsc
           # - task: Npm@1
           #   inputs:
@@ -68,6 +76,10 @@ stages:
             inputs:
               command: 'install'
               workingDir: 'buildandreleasetask/SetTestRunStatus'
+          - task: Npm@1
+            inputs:
+              command: 'install'
+              workingDir: 'buildandreleasetask/SetAutomationStatus'
           - task: Bash@3
             displayName: Compile Javascript
             inputs:
@@ -77,6 +89,9 @@ stages:
                 tsc
                 cd ../..
                 cd buildandreleasetask/SetTestRunStatus 
+                tsc
+                cd ../..
+                cd buildandreleasetask/SetAutomationStatus 
                 tsc
           - task: QueryAzureDevOpsExtensionVersion@3
             inputs:
