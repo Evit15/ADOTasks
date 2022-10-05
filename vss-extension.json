@@ -26,6 +26,10 @@
         },
         {
             "path": "buildandreleasetask/SetAutomationStatus"
+        },
+        {
+            "path": "images",
+            "addressable": true
         }
     ],
     "contributions": [

@@ -8,6 +8,6 @@ Azure DevOps Pipelines Tasks to support for Automation Test
 
 ## Screenshot
 
-![Generate Azure Test Run](/screenshot/GenerateAzureTestRun.png)
-![Set Automation Status](/screenshot/SetAutomationStatus.png)
-![Set Azure Test Run Status](/screenshot/SetAzureTestRunStatus.png)
+![Generate Azure Test Run](/images/GenerateAzureTestRun.png)
+![Set Automation Status](/images/SetAutomationStatus.png)
+![Set Azure Test Run Status](/images/SetAzureTestRunStatus.png)
