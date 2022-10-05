@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "Evit15-build-release-task",
-    "name": "Evit15 Build and Release Tools",
+    "name": "Automation test tasks",
     "version": "0.0.1",
     "publisher": "Evit15",
     "targets": [
@@ -9,7 +9,7 @@
             "id": "Microsoft.VisualStudio.Services"
         }
     ],    
-    "description": "Tools for building/releasing with Evit15. Includes one build/release task.",
+    "description": "Tasks support for Automation Test on Azure DevOps Services.",
     "categories": [
         "Azure Pipelines"
     ],
