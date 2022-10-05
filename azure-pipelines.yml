@@ -15,7 +15,7 @@ variables:
   - name: ExtensionID
     value: Evit15-build-release-task
   - name: ExtensionName
-    value: Evit15 Build and Release Tools
+    value: Automation test tasks
   - name: artifactName
     value: vsixFile 
 
