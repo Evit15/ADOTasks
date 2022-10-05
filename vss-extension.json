@@ -58,5 +58,8 @@
                 "name": "buildandreleasetask/SetAutomationStatus"
             }
         }
+    ],
+    "galleryFlags": [
+        "Public"
     ]
 }
