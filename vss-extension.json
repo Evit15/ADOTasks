@@ -4,6 +4,7 @@
     "name": "Automation test tasks",
     "version": "0.0.1",
     "publisher": "Evit15",
+    "public": true,
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
@@ -59,7 +60,21 @@
             }
         }
     ],
-    "galleryFlags": [
-        "Public"
-    ]
+    "links": {
+        "support": {
+          "uri": "https://github.com/Evit15/ADOTasks/issues"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/Evit15/ADOTasks"
+    },
+    "content": {
+        "details": {
+          "path": "README.md"
+        },
+        "license": {
+          "path": "LICENSE"
+        }
+      }
 }
