@@ -79,6 +79,9 @@
         },
         "license": {
           "path": "LICENSE"
+        },
+        "privacypolicy": {
+            "path": "privacypolicy.txt"
         }
     }
 }
