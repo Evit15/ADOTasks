@@ -145,5 +145,5 @@ stages:
               extensionId: '$(ExtensionID)'
               extensionName: '$(ExtensionName)'
               updateTasksVersion: false
-              extensionVisibility: 'private' # Change to public if you're publishing to the marketplace
+              extensionVisibility: 'public' # Change to public if you're publishing to the marketplace
               extensionPricing: 'free'
