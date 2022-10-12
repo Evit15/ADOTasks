@@ -27,6 +27,14 @@
     ],
     "inputs": [
         {
+            "name": "testRunName",
+            "type": "string",
+            "label": "Test Run Name",
+            "defaultValue": "Test Run",
+            "required": true,
+            "helpMarkDown": "Input the test run name."
+        },
+        {
             "name": "testPlan",
             "type": "pickList",
             "label": "Test plan",

@@ -9,6 +9,7 @@ async function run() {
         const sTestPlanID = tl.getInput('testPlan', true)!;
         const sTestSuiteID = tl.getInput('testSuite', true)!;
         const sTestRunOutput = tl.getInput('outputTestRunID', true)!;
+        const sTestRunName = tl.getInput('testRunName', true)!;
 
         const iTestPlanID: number = parseInt(sTestPlanID);
         const iTestSuiteID: number = parseInt(sTestSuiteID);
@@ -33,7 +34,7 @@ async function run() {
             id: `${iTestPlanID}`
         }
         const testRunModel: ti.RunCreateModel = {
-            name: 'testrun',
+            name: `${sTestRunName}`,
             plan: testplanid,
             configurationIds: [],
             pointIds: pointIds
