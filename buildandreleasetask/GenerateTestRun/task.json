@@ -3,7 +3,7 @@
     "id": "a6fde8d1-9dc5-40bf-9cf7-1153eb52caa2",
     "name": "generate-test-run",
     "friendlyName": "Generate test run",
-    "description": "Custom task",
+    "description": "Generate the new test run from the selected test plan and the selected test suites",
     "helpMarkDown": "",
     "category": "Utility",
     "author": "Hieu Dang",
