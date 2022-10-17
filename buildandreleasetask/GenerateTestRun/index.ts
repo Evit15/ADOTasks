@@ -33,6 +33,12 @@ async function run() {
         const testplanid: ti.ShallowReference = {
             id: `${iTestPlanID}`
         }
+        // associate with Release
+        const releaseid = tl.getVariable('Release.ReleaseId');
+        const releasename = tl.getVariable('Release.ReleaseName');
+        console.log(`Release id: ${releaseid}`);
+        console.log(`Release name: ${releasename}`);
+        
         const testRunModel: ti.RunCreateModel = {
             name: `${sTestRunName}`,
             plan: testplanid,
