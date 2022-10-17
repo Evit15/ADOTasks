@@ -37,7 +37,8 @@ async function run() {
             name: `${sTestRunName}`,
             plan: testplanid,
             configurationIds: [],
-            pointIds: pointIds
+            pointIds: pointIds,
+            automated: true
         };
         // associate with Release
         const releaseid = tl.getVariable('Release.ReleaseId');
