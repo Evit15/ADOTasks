@@ -33,18 +33,31 @@ async function run() {
         const testplanid: ti.ShallowReference = {
             id: `${iTestPlanID}`
         }
-        // associate with Release
-        const releaseid = tl.getVariable('Release.ReleaseId');
-        const releasename = tl.getVariable('Release.ReleaseName');
-        console.log(`Release id: ${releaseid}`);
-        console.log(`Release name: ${releasename}`);
-        
-        const testRunModel: ti.RunCreateModel = {
+        let testRunModel: ti.RunCreateModel = {
             name: `${sTestRunName}`,
             plan: testplanid,
             configurationIds: [],
             pointIds: pointIds
         };
+        // associate with Release
+        const releaseid = tl.getVariable('Release.ReleaseId');
+        console.log(`Release id: ${releaseid}`);
+        if(releaseid != undefined){
+            const releasename = tl.getVariable('Release.ReleaseName');
+            const releaseuri = tl.getVariable('Release.ReleaseUri');
+            const releaseenvuri = tl.getVariable('Release.EnvironmentUri');
+            console.log(`Release name: ${releasename}`);
+            console.log(`Release uri: ${releaseuri}`);
+            console.log(`Release env uri: ${releaseenvuri}`);
+            let releaseref: ti.ReleaseReference = {
+                id: parseInt(releaseid),
+                name: releasename
+            };
+            testRunModel.releaseReference = releaseref;
+            testRunModel.releaseUri = releaseuri;
+            testRunModel.releaseEnvironmentUri = releaseenvuri;
+        }
+        
         let testRunNew: ti.TestRun = await test.createTestRun(testRunModel, project)
         console.log(`Test run id: ${testRunNew.id}`);
 
