@@ -44,11 +44,14 @@ stages:
             inputs:
               targetType: "inline"
               script: |
+                echo "Compile GenerateTestRun"
                 cd buildandreleasetask/GenerateTestRun 
                 tsc
+                echo "Compile SetTestRunStatus"
                 cd ../..
                 cd buildandreleasetask/SetTestRunStatus 
                 tsc
+                echo "Compile SetAutomationStatus"
                 cd ../..
                 cd buildandreleasetask/SetAutomationStatus 
                 tsc
@@ -85,11 +88,14 @@ stages:
             inputs:
               targetType: "inline"
               script: |
+                echo "Compile GenerateTestRun"
                 cd buildandreleasetask/GenerateTestRun 
                 tsc
+                echo "Compile SetTestRunStatus"
                 cd ../..
                 cd buildandreleasetask/SetTestRunStatus 
                 tsc
+                echo "Compile SetAutomationStatus"
                 cd ../..
                 cd buildandreleasetask/SetAutomationStatus 
                 tsc
