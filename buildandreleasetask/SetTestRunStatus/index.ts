@@ -8,7 +8,7 @@ async function run() {
         const testrunid: string = tl.getInput('TestRunID', true)!;
         const testrunstate: string = tl.getInput('State', true)!;
         const iTestRunId: number = +testrunid;
-        if (iTestRunId == NaN) {
+        if (isNaN(iTestRunId)) {
             tl.setResult(tl.TaskResult.Failed, 'Test Run ID is not the number');
             return;
         }

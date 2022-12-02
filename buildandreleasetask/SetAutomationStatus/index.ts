@@ -43,7 +43,7 @@ async function run() {
                 return;
             }
             const iTestCaseID: number = parseInt(inputString);
-            if (iTestCaseID == 0 || iTestCaseID == NaN){
+            if (iTestCaseID == 0 || isNaN(iTestCaseID)){
                 tl.setResult(tl.TaskResult.Failed, 'Please input test case id is number');
                 return;
             }
