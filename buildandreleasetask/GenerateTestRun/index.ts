@@ -12,9 +12,11 @@ async function run() {
         const sTestRunName = tl.getInput('testRunName', true)!;
 
         const iTestPlanID: number = parseInt(sTestPlanID);
-        const iTestSuiteID: number = parseInt(sTestSuiteID);
+        const iTestSuiteIDs: number[] = sTestSuiteID.split(',').map(function(item) {
+            return parseInt(item, 10);
+        });
         console.log(`Test plan id: ${iTestPlanID}`);
-        console.log(`Test suite id: ${iTestSuiteID}`);
+        console.log(`Test suite id: ${iTestSuiteIDs}`);
         const collectionUri = tl.getVariable('System.TeamFoundationCollectionUri')!;
         const token = tl.getEndpointAuthorization('SystemVssConnection', true)!.parameters.AccessToken;
         const project = tl.getVariable('System.TeamProject')!;
@@ -23,11 +25,13 @@ async function run() {
         let connection = new azdev.WebApi(collectionUri, authHandler); 
         let test: te.ITestApi = await connection.getTestApi();
         let pointIds: number[] = []
-        let tps: ti.TestPoint[] = await test.getPoints(project, iTestPlanID, iTestSuiteID);
-        tps.forEach(tp => {
-            console.log(`Test point id: ${tp.id}`);
-            pointIds.push(tp.id)
-        });
+        await Promise.all(iTestSuiteIDs.map(async (suiteid) => {
+            let tps: ti.TestPoint[] = await test.getPoints(project, iTestPlanID, suiteid);
+            tps.forEach(tp => {
+                console.log(`Test point id: ${tp.id}`);
+                pointIds.push(tp.id)
+            });
+        }));
         //const extendapi = new ExtendApi.ExtendApi(collectionUri, [authHandler]);
         //const testPlan: ti.TestPlan = await extendapi.getTestPlanById(project, iTestPlanID);
         const testplanid: ti.ShallowReference = {
