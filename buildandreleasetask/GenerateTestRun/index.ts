@@ -4,16 +4,32 @@ import * as azdev from "azure-devops-node-api";
 import * as ti from "azure-devops-node-api/interfaces/TestInterfaces";
 //import ExtendApi = require('./ExtendApi');
 
+function tryParseInt(str:string, errMsg: string) {
+    const parsed = parseInt(str, 10);
+    if (isNaN(parsed)) {
+        throw new Error(`${str} is not a number (${errMsg})`);
+    }
+    return parsed
+}
+
 async function run() {
     try {
-        const sTestPlanID = tl.getInput('testPlan', true)!;
-        const sTestSuiteID = tl.getInput('testSuite', true)!;
+        const bUseUISelction = tl.getBoolInput('uiSelection', true)!;
+        let sTestPlanID:string = ''
+        let sTestSuiteID:string = ''
+        if(bUseUISelction){
+            sTestPlanID = tl.getInput('testPlan', true)!;
+            sTestSuiteID = tl.getInput('testSuite', true)!;
+        }else{
+            sTestPlanID = tl.getInput('testPlanString', true)!;
+            sTestSuiteID = tl.getInput('testSuiteString', true)!;
+        }
         const sTestRunOutput = tl.getInput('outputTestRunID', true)!;
         const sTestRunName = tl.getInput('testRunName', true)!;
 
-        const iTestPlanID: number = parseInt(sTestPlanID);
+        const iTestPlanID: number = tryParseInt(sTestPlanID, 'Test Plan ID');
         const iTestSuiteIDs: number[] = sTestSuiteID.split(',').map(function(item) {
-            return parseInt(item, 10);
+            return tryParseInt(item, 'Test Suite ID');
         });
         console.log(`Test plan id: ${iTestPlanID}`);
         console.log(`Test suite id: ${iTestSuiteIDs}`);
