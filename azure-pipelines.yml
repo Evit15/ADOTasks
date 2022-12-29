@@ -18,6 +18,8 @@ variables:
     value: Automation test tasks
   - name: artifactName
     value: vsixFile 
+  - name: System.Debug
+    value: true
 
 stages:
   - stage: Run_and_publish_unit_tests
