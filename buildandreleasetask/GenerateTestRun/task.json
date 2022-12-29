@@ -35,6 +35,15 @@
             "helpMarkDown": "Input the test run name."
         },
         {
+            "name": "uiSelection",
+            "type": "boolean",
+            "label": "Use UI Selection",
+            "defaultValue": "true",
+            "required": true,
+            "groupName": "testSelection",
+            "helpMarkDown": "Select Test Plan & Test Suite by UI."
+        },
+        {
             "name": "testPlan",
             "type": "pickList",
             "label": "Test plan",
@@ -45,7 +54,8 @@
             "properties": {
                 "DisableManageLink": "True",
                 "EditableOptions": "True"
-            }
+            },
+            "visibleRule": "uiSelection = true"
         },
         {
             "name": "testSuite",
@@ -59,7 +69,36 @@
                 "MultiSelect": "True",
                 "DisableManageLink": "True",
                 "EditableOptions": "True"
-            }
+            },
+            "visibleRule": "uiSelection = true"
+        },
+        {
+            "name": "testPlanString",
+            "type": "string",
+            "label": "Test plan",
+            "defaultValue": "$(TestPlanID)",
+            "required": true,
+            "groupName": "testSelection",
+            "helpMarkDown": "Select a test plan containing test suites with automated test cases.",
+            "properties": {
+                "DisableManageLink": "True",
+                "EditableOptions": "True"
+            },
+            "visibleRule": "uiSelection = false"
+        },
+        {
+            "name": "testSuiteString",
+            "type": "string",
+            "label": "Test suite",
+            "defaultValue": "$(TestSuiteID)",
+            "required": true,
+            "groupName": "testSelection",
+            "helpMarkDown": "Select one or more test suites containing automated test cases. Test case work items must be associated with an automated test method.",
+            "properties": {
+                "DisableManageLink": "True",
+                "EditableOptions": "True"
+            },
+            "visibleRule": "uiSelection = false"
         },
         {
             "name": "outputTestRunID",
