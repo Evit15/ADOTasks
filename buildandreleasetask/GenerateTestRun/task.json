@@ -73,6 +73,15 @@
             "visibleRule": "uiSelection = true"
         },
         {
+            "name": "linkToArtifact",
+            "type": "boolean",
+            "label": "Link to Build Artifact",
+            "defaultValue": "false",
+            "required": true,
+            "groupName": "testSelection",
+            "helpMarkDown": "Link to Build Artifact."
+        },
+        {
             "name": "testArtifact",
             "type": "pickList",
             "label": "Test Artifact",
@@ -83,7 +92,8 @@
             "properties": {
                 "DisableManageLink": "True",
                 "EditableOptions": "True"
-            }
+            },
+            "visibleRule": "linkToArtifact = true"
         },
         {
             "name": "testPlanString",
