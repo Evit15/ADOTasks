@@ -155,7 +155,7 @@
         },
         {
             "target": "testArtifact",
-            "endpointId": "tfs:teamfoundation",
+            "endpointId": "tfs:rm",
             "endpointUrl": "{{endpoint.url}}/{{system.teamProject}}/_apis/release/definitions/9?api-version=3.0-preview.2",
             "resultSelector": "jsonpath:$.artifacts[*]",
             "resultTemplate": "{ \"Value\" : \"{{{alias}}}\", \"DisplayValue\" : \"{{{alias}}}]\" }"
