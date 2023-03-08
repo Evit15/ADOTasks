@@ -73,6 +73,19 @@
             "visibleRule": "uiSelection = true"
         },
         {
+            "name": "testArtifact",
+            "type": "pickList",
+            "label": "Test Artifact",
+            "defaultValue": "",
+            "required": true,
+            "groupName": "testSelection",
+            "helpMarkDown": "",
+            "properties": {
+                "DisableManageLink": "True",
+                "EditableOptions": "True"
+            }
+        },
+        {
             "name": "testPlanString",
             "type": "string",
             "label": "Test plan",
@@ -129,6 +142,13 @@
                 "testPlanId": "$(testPlan)"
             },
             "resultSelector": "jsonpath:$.value[*]"
+        },
+        {
+            "target": "testArtifact",
+            "endpointId": "tfs:teamfoundation",
+            "endpointUrl": "{{endpoint.url}}/{{system.teamProject}}/_apis/release/definitions/{{Release.DefinitionId}}?api-version=3.0-preview.2",
+            "resultSelector": "jsonpath:$.artifacts[*]",
+            "resultTemplate": "{ \"Value\" : \"{{{alias}}}\", \"DisplayValue\" : \"{{{alias}}}]\" }"
         }
     ],
     "execution": {
