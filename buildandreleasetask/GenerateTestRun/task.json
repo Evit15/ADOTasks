@@ -156,7 +156,10 @@
         {
             "target": "testArtifact",
             "endpointId": "tfs:rm",
-            "endpointUrl": "{{endpoint.url}}/{{system.teamProject}}/_apis/release/definitions/$(release.definitionId)?api-version=3.0-preview.2",
+            "endpointUrl": "{{endpoint.url}}/{{system.teamProject}}/_apis/release/definitions/{{releaseid}}?api-version=3.0-preview.2",
+            "parameters": {
+                "releaseid": "$(release.definitionId)"
+            },
             "resultSelector": "jsonpath:$.artifacts[*]",
             "resultTemplate": "{ \"Value\" : \"{{{alias}}}\", \"DisplayValue\" : \"{{{alias}}}\" }"
         }
