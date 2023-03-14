@@ -88,12 +88,18 @@ async function run() {
                     console.log(`Build number: ${buildNumber}`);
                     console.log(`Build id: ${buildID}`);
                     console.log(`Build uri: ${buildurl}`);
-                    let buildref: ti.BuildConfiguration = {
+                    let buildConfig: ti.BuildConfiguration = {
                         number: buildNumber,
                         id: parseInt(buildID),
                         uri: buildurl
                     }
-                    testRunModel.buildReference = buildref
+                    let buildRef: ti.ShallowReference = {
+                        id: buildID,
+                        name: buildNumber,
+                        url: buildurl
+                    };
+                    testRunModel.buildReference = buildConfig
+                    testRunModel.build = buildRef
                 }else{
                     console.warn(`Build number of variable RELEASE_ARTIFACTS_${sBuildArtifactName}_BUILDNUMBER not exist`);
                 }
