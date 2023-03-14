@@ -20,6 +20,11 @@
             "isExpanded": true
         },
         {
+            "name": "artifactBuildSelection",
+            "displayName": "Link To Build",
+            "isExpanded": true
+        },
+        {
             "name": "outputVariables",
             "displayName": "Output Variables",
             "isExpanded": true
@@ -78,7 +83,7 @@
             "label": "Link to Build Artifact",
             "defaultValue": "false",
             "required": true,
-            "groupName": "testSelection",
+            "groupName": "artifactBuildSelection",
             "helpMarkDown": "Link to Build Artifact."
         },
         {
@@ -87,12 +92,21 @@
             "label": "Test Artifact",
             "defaultValue": "",
             "required": false,
-            "groupName": "testSelection",
+            "groupName": "artifactBuildSelection",
             "helpMarkDown": "",
             "properties": {
                 "DisableManageLink": "True",
                 "EditableOptions": "True"
             },
+            "visibleRule": "linkToArtifact = true"
+        },
+        {
+            "name": "currentReleaseID",
+            "type": "string",
+            "label": "Current Release ID",
+            "defaultValue": "$(release.definitionId)",
+            "required": true,
+            "helpMarkDown": "For the first time, the task need to input current release ID to get all build artifacts. The next time, you can use variable.",
             "visibleRule": "linkToArtifact = true"
         },
         {
@@ -158,7 +172,7 @@
             "endpointId": "tfs:rm",
             "endpointUrl": "{{endpoint.url}}/{{system.teamProject}}/_apis/release/definitions/{{releaseid}}?api-version=3.0-preview.2",
             "parameters": {
-                "releaseid": "$(release.definitionId)"
+                "releaseid": "$(currentReleaseID)"
             },
             "resultSelector": "jsonpath:$.artifacts[*]",
             "resultTemplate": "{ \"Value\" : \"{{{alias}}}\", \"DisplayValue\" : \"{{{alias}}}\" }"
