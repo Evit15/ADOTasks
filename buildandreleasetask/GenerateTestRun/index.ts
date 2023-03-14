@@ -15,6 +15,7 @@ function tryParseInt(str:string, errMsg: string) {
 async function run() {
     try {
         const bUseUISelction = tl.getBoolInput('uiSelection', true)!;
+        const bUseLinkToBuild = tl.getBoolInput('linkToArtifact', true)!;
         let sTestPlanID:string = ''
         let sTestSuiteID:string = ''
         if(bUseUISelction){
@@ -77,6 +78,26 @@ async function run() {
             testRunModel.releaseReference = releaseref;
             testRunModel.releaseUri = releaseuri;
             testRunModel.releaseEnvironmentUri = releaseenvuri;
+
+            if(bUseLinkToBuild){
+                const sBuildArtifactName = tl.getInput('testArtifact', true)!;
+                const buildNumber = tl.getVariable(`RELEASE_ARTIFACTS_${sBuildArtifactName}_BUILDNUMBER`);
+                const buildID = tl.getVariable(`RELEASE_ARTIFACTS_${sBuildArtifactName}_BUILDID`);
+                const buildurl = tl.getVariable(`RELEASE_ARTIFACTS_${sBuildArtifactName}_BUILDURI`);
+                if(buildNumber != undefined && buildID != undefined){
+                    console.log(`Build number: ${buildNumber}`);
+                    console.log(`Build id: ${buildID}`);
+                    console.log(`Build uri: ${buildurl}`);
+                    let buildref: ti.BuildConfiguration = {
+                        number: buildNumber,
+                        id: parseInt(buildID),
+                        uri: buildurl
+                    }
+                    testRunModel.buildReference = buildref
+                }else{
+                    console.warn(`Build number of variable RELEASE_ARTIFACTS_${sBuildArtifactName}_BUILDNUMBER not exist`);
+                }
+            }
         }
         
         let testRunNew: ti.TestRun = await test.createTestRun(testRunModel, project)

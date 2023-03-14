@@ -105,7 +105,8 @@
             "type": "string",
             "label": "Current Release ID",
             "defaultValue": "$(release.definitionId)",
-            "required": true,
+            "groupName": "artifactBuildSelection",
+            "required": false,
             "helpMarkDown": "For the first time, the task need to input current release ID to get all build artifacts. The next time, you can use variable.",
             "visibleRule": "linkToArtifact = true"
         },
