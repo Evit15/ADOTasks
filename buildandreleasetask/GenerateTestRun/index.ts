@@ -11,7 +11,9 @@ function tryParseInt(str:string, errMsg: string) {
     }
     return parsed
 }
-
+function throwExpression(errorMessage: string): never {
+    throw new Error(errorMessage);
+  }
 async function run() {
     try {
         const bUseUISelction = tl.getBoolInput('uiSelection', true)!;
@@ -44,7 +46,8 @@ async function run() {
         let pointIds: number[] = []
         await Promise.all(iTestSuiteIDs.map(async (suiteid) => {
             let tps: ti.TestPoint[] = await test.getPoints(project, iTestPlanID, suiteid);
-            tps.forEach(tp => {
+            const tpsConst = tps ?? throwExpression("Test Plan ID or Test Suite ID is not exist ") 
+            tpsConst.forEach(tp => {
                 console.log(`Test point id: ${tp.id}`);
                 pointIds.push(tp.id)
             });
