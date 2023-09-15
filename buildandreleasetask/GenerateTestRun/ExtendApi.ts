@@ -69,9 +69,9 @@ export class ExtendApi extends basem.ClientApiBase {
     public async getTestSuitesForPlan(
         project: string,
         planId: number,
+        as_tree_view?: boolean,
         expand?: string,
-        continuation_token?: string,
-        as_tree_view?: boolean
+        continuation_token?: string
         ): Promise<ti.TestSuite> {
         return new Promise<ti.TestSuite>(async (resolve, reject) => {
             let routeValues: any = {
@@ -100,7 +100,7 @@ export class ExtendApi extends basem.ClientApiBase {
 
                 let ret = this.formatResponse(res.result,
                                             ti.TypeInfo.TestSuite,
-                                                false);
+                                                true);
 
                 resolve(ret);
                 

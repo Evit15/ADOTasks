@@ -55,7 +55,7 @@ async function run() {
         }));
         if(bGetRecursive){
             const extendapi = new ExtendApi.ExtendApi(collectionUri, [authHandler]);
-            const testSuite: ti.TestSuite = await extendapi.getTestSuitesForPlan(project, iTestPlanID);
+            const testSuite: ti.TestSuite = await extendapi.getTestSuitesForPlan(project, iTestPlanID, true);
             console.log(`Test suite name _____: ${testSuite.name}`);
         }
         //const extendapi = new ExtendApi.ExtendApi(collectionUri, [authHandler]);
