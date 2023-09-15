@@ -57,4 +57,57 @@ export class ExtendApi extends basem.ClientApiBase {
             }
         });
     }
+    // GetTestSuitesForPlan.
+    // Get test suites for plan.
+    // :param str project: Project ID or project name
+    // :param int plan_id: ID of the test plan for which suites are requested.
+    // :param str expand: Include the children suites and testers details.
+    // :param str continuation_token: If the list of suites returned is not complete, a continuation token to query next batch of suites is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test suites.
+    // :param bool as_tree_view: If the suites returned should be in a tree structure.
+    // :rtype: :class:`<[TestSuite]> <azure.devops.v7_0.test_plan.models.[TestSuite]>`
+    // 
+    public async getTestSuitesForPlan(
+        project: string,
+        planId: number,
+        expand?: string,
+        continuation_token?: string,
+        as_tree_view?: boolean
+        ): Promise<ti.TestSuite> {
+        return new Promise<ti.TestSuite>(async (resolve, reject) => {
+            let routeValues: any = {
+                project: project,
+                planId: planId
+            };
+            let queryValues = {
+                asTreeView: as_tree_view,
+                continuationToken: continuation_token,
+                expand: expand
+            };
+            try {
+                let verData: vsom.ClientVersioningData = await this.vsoClient.getVersioningData(
+                    "7.0",
+                    "TestPlan",
+                    "1046d5d3-ab61-4ca7-a65a-36118a978256",
+                    routeValues,
+                    queryValues);
+
+                let url: string = verData.requestUrl!;
+                let options: restm.IRequestOptions = this.createRequestOptions('application/json', 
+                                                                                verData.apiVersion);
+
+                let res: restm.IRestResponse<ti.TestSuite>;
+                res = await this.rest.get<ti.TestSuite>(url, options);
+
+                let ret = this.formatResponse(res.result,
+                                            ti.TypeInfo.TestSuite,
+                                                false);
+
+                resolve(ret);
+                
+            }
+            catch (err) {
+                reject(err);
+            }
+        });
+    }
 }

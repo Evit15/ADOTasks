@@ -2,7 +2,7 @@ import tl = require('azure-pipelines-task-lib/task');
 import * as te from "azure-devops-node-api/TestApi";
 import * as azdev from "azure-devops-node-api";
 import * as ti from "azure-devops-node-api/interfaces/TestInterfaces";
-//import ExtendApi = require('./ExtendApi');
+import ExtendApi = require('./ExtendApi');
 
 function tryParseInt(str:string, errMsg: string) {
     const parsed = parseInt(str, 10);
@@ -17,6 +17,7 @@ function throwExpression(errorMessage: string): never {
 async function run() {
     try {
         const bUseUISelction = tl.getBoolInput('uiSelection', true)!;
+        const bGetRecursive = tl.getBoolInput('getRecursive', false)!;
         const bUseLinkToBuild = tl.getBoolInput('linkToArtifact', true)!;
         let sTestPlanID:string = ''
         let sTestSuiteID:string = ''
@@ -52,6 +53,11 @@ async function run() {
                 pointIds.push(tp.id)
             });
         }));
+        if(bGetRecursive){
+            const extendapi = new ExtendApi.ExtendApi(collectionUri, [authHandler]);
+            const testSuite: ti.TestSuite = await extendapi.getTestSuitesForPlan(project, iTestPlanID);
+            console.log(`Test suite name _____: ${testSuite.name}`);
+        }
         //const extendapi = new ExtendApi.ExtendApi(collectionUri, [authHandler]);
         //const testPlan: ti.TestPlan = await extendapi.getTestPlanById(project, iTestPlanID);
         const testplanid: ti.ShallowReference = {

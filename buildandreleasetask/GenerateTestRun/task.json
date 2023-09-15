@@ -49,6 +49,15 @@
             "helpMarkDown": "Select Test Plan & Test Suite by UI."
         },
         {
+            "name": "getRecursive",
+            "type": "boolean",
+            "label": "Recursive",
+            "defaultValue": "false",
+            "required": true,
+            "groupName": "testSelection",
+            "helpMarkDown": "Get test points of all children suites."
+        },
+        {
             "name": "testPlan",
             "type": "pickList",
             "label": "Test plan",
