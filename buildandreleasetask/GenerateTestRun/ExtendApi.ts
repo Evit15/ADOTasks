@@ -72,8 +72,8 @@ export class ExtendApi extends basem.ClientApiBase {
         as_tree_view?: boolean,
         expand?: string,
         continuation_token?: string
-        ): Promise<ti.TestSuite> {
-        return new Promise<ti.TestSuite>(async (resolve, reject) => {
+        ): Promise<ti.TestSuite[]> {
+        return new Promise<ti.TestSuite[]>(async (resolve, reject) => {
             let routeValues: any = {
                 project: project,
                 planId: planId
@@ -95,8 +95,7 @@ export class ExtendApi extends basem.ClientApiBase {
                 let options: restm.IRequestOptions = this.createRequestOptions('application/json', 
                                                                                 verData.apiVersion);
 
-                let res: restm.IRestResponse<ti.TestSuite>;
-                res = await this.rest.get<ti.TestSuite>(url, options);
+                let res = await this.rest.get(url, options);
 
                 let ret = this.formatResponse(res.result,
                                             ti.TypeInfo.TestSuite,

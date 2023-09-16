@@ -14,6 +14,29 @@ function tryParseInt(str:string, errMsg: string) {
 function throwExpression(errorMessage: string): never {
     throw new Error(errorMessage);
   }
+function getAllSubSuites(suite: ti.TestSuite, startId: number, result: number[], autoget: boolean, isParent: boolean){
+    if (suite.id == startId && isParent == false) {
+        result = getAllSubSuites(suite, startId, result, true, true);
+    } else if (suite.children != undefined) {
+        if (isParent || autoget) {
+            if(!result.includes(suite.id))
+                result.push(suite.id);
+        }
+        for (let suiteChil of suite.children){
+            if (suiteChil.id == startId) {
+                result = getAllSubSuites(suiteChil, startId, result, true, true);
+                break;
+            }
+            result = getAllSubSuites(suiteChil, startId, result, autoget, isParent);
+        }
+    } else if (suite.children == undefined && autoget == true) {
+        if(!result.includes(suite.id))
+            result.push(suite.id);
+        return result;
+    }
+    return result;
+
+}
 async function run() {
     try {
         const bUseUISelction = tl.getBoolInput('uiSelection', true)!;
@@ -32,18 +55,37 @@ async function run() {
         const sTestRunName = tl.getInput('testRunName', true)!;
 
         const iTestPlanID: number = tryParseInt(sTestPlanID, 'Test Plan ID');
-        const iTestSuiteIDs: number[] = sTestSuiteID.split(',').map(function(item) {
+        let iTestSuiteIDs: number[] = sTestSuiteID.split(',').map(function(item) {
             return tryParseInt(item, 'Test Suite ID');
         });
         console.log(`Test plan id: ${iTestPlanID}`);
         console.log(`Test suite id: ${iTestSuiteIDs}`);
         const collectionUri = tl.getVariable('System.TeamFoundationCollectionUri')!;
-        const token = tl.getEndpointAuthorization('SystemVssConnection', true)!.parameters.AccessToken;
+        let endPoint: tl.EndpointAuthorization|undefined = tl.getEndpointAuthorization('SystemVssConnection', true);
+        let token;
+        if(endPoint == undefined){
+            token = tl.getVariable('DEBUG_PAT')!;
+            console.log(`GET token from DEBUG_PAT`);
+        }else{
+            token = endPoint.parameters.AccessToken;
+        }
         const project = tl.getVariable('System.TeamProject')!;
         console.log(`Collection URL: ${collectionUri}`);
         let authHandler = azdev.getPersonalAccessTokenHandler(token); 
         let connection = new azdev.WebApi(collectionUri, authHandler); 
         let test: te.ITestApi = await connection.getTestApi();
+        // get all test suites
+        if(bGetRecursive){
+            const cloneTestSuiteIDs  = [...iTestSuiteIDs];
+            const extendapi = new ExtendApi.ExtendApi(collectionUri, [authHandler]);
+            const testSuites: ti.TestSuite[] = await extendapi.getTestSuitesForPlan(project, iTestPlanID, true);
+            console.log(`Test suite root name _____: ${testSuites[0].name}`);
+            for(let suiteid of cloneTestSuiteIDs){
+                iTestSuiteIDs = getAllSubSuites(testSuites[0], suiteid, iTestSuiteIDs, false, false);
+            }
+            console.log(`All suites : ${iTestSuiteIDs}`);
+        }
+        // get all test points
         let pointIds: number[] = []
         await Promise.all(iTestSuiteIDs.map(async (suiteid) => {
             let tps: ti.TestPoint[] = await test.getPoints(project, iTestPlanID, suiteid);
@@ -53,11 +95,6 @@ async function run() {
                 pointIds.push(tp.id)
             });
         }));
-        if(bGetRecursive){
-            const extendapi = new ExtendApi.ExtendApi(collectionUri, [authHandler]);
-            const testSuite: ti.TestSuite = await extendapi.getTestSuitesForPlan(project, iTestPlanID, true);
-            console.log(`Test suite name _____: ${testSuite.name}`);
-        }
         //const extendapi = new ExtendApi.ExtendApi(collectionUri, [authHandler]);
         //const testPlan: ti.TestPlan = await extendapi.getTestPlanById(project, iTestPlanID);
         const testplanid: ti.ShallowReference = {
