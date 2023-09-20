@@ -55,7 +55,8 @@
             "defaultValue": "false",
             "required": true,
             "groupName": "testSelection",
-            "helpMarkDown": "Get test points of all children suites."
+            "helpMarkDown": "Get test points of all children suites.",
+            "visibleRule": "uiSelection = true"
         },
         {
             "name": "testPlan",
@@ -118,6 +119,16 @@
             "required": false,
             "helpMarkDown": "For the first time, the task need to input current release ID to get all build artifacts. The next time, you can use variable.",
             "visibleRule": "linkToArtifact = true"
+        },
+        {
+            "name": "getRecursiveString",
+            "type": "string",
+            "label": "Recursive",
+            "defaultValue": "$(RecursiveTestSuite)",
+            "required": true,
+            "groupName": "testSelection",
+            "helpMarkDown": "Get test points of all children suites.",
+            "visibleRule": "uiSelection = false"
         },
         {
             "name": "testPlanString",

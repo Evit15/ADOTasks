@@ -11,6 +11,19 @@ function tryParseInt(str:string, errMsg: string) {
     }
     return parsed
 }
+function getBoolean(value: any){
+    switch(value){
+         case true:
+         case "true":
+         case 1:
+         case "1":
+         case "on":
+         case "yes":
+             return true;
+         default: 
+             return false;
+     }
+ }
 function throwExpression(errorMessage: string): never {
     throw new Error(errorMessage);
   }
@@ -40,16 +53,19 @@ function getAllSubSuites(suite: ti.TestSuite, startId: number, result: number[],
 async function run() {
     try {
         const bUseUISelction = tl.getBoolInput('uiSelection', true)!;
-        const bGetRecursive = tl.getBoolInput('getRecursive', false)!;
+        let bGetRecursive:boolean = false;
         const bUseLinkToBuild = tl.getBoolInput('linkToArtifact', true)!;
         let sTestPlanID:string = ''
         let sTestSuiteID:string = ''
         if(bUseUISelction){
             sTestPlanID = tl.getInput('testPlan', true)!;
             sTestSuiteID = tl.getInput('testSuite', true)!;
+            bGetRecursive = tl.getBoolInput('getRecursive', false)!
         }else{
             sTestPlanID = tl.getInput('testPlanString', true)!;
             sTestSuiteID = tl.getInput('testSuiteString', true)!;
+            const sGetRecursive = tl.getInput('getRecursiveString', true)!;
+            bGetRecursive = getBoolean(sGetRecursive);
         }
         const sTestRunOutput = tl.getInput('outputTestRunID', true)!;
         const sTestRunName = tl.getInput('testRunName', true)!;
